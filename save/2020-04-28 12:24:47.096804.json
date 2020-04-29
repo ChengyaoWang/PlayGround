@@ -1,0 +1,136 @@
+{
+    "Model": "NiNet",
+    "Model Size Trainable": 1556810,
+    "Model Size Total": 1556810,
+    "Model Structure": [
+        "(mlpconv_1): Sequential(",
+        "  (0): Conv2d(3, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))",
+        "  (1): ReLU(inplace=True)",
+        "  (2): Conv2d(192, 160, kernel_size=(1, 1), stride=(1, 1))",
+        "  (3): ReLU(inplace=True)",
+        "  (4): Conv2d(160, 96, kernel_size=(1, 1), stride=(1, 1))",
+        "  (5): ReLU(inplace=True)",
+        ")",
+        "(maxpool_1): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)",
+        "(mlpconv_2): Sequential(",
+        "  (0): Dropout(p=0.5, inplace=False)",
+        "  (1): Conv2d(96, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))",
+        "  (2): ReLU(inplace=True)",
+        "  (3): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))",
+        "  (4): ReLU(inplace=True)",
+        "  (5): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))",
+        "  (6): ReLU(inplace=True)",
+        ")",
+        "(maxpool_2): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)",
+        "(mlpconv_3): Sequential(",
+        "  (0): Dropout(p=0.5, inplace=False)",
+        "  (1): Conv2d(192, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))",
+        "  (2): ReLU(inplace=True)",
+        "  (3): Conv2d(192, 192, kernel_size=(1, 1), stride=(1, 1))",
+        "  (4): ReLU(inplace=True)",
+        "  (5): Conv2d(192, 10, kernel_size=(1, 1), stride=(1, 1))",
+        "  (6): ReLU(inplace=True)",
+        ")",
+        "(avgpool_3): AdaptiveAvgPool2d(output_size=(1, 1))"
+    ],
+    "Batch Size": 128,
+    "Total Epoch": 350,
+    "Device": "cuda",
+    "Loss Function": "CrossEntropyLoss",
+    "Optimizer": {
+        "Type": "SGD",
+        "State": {},
+        "param_groups": {
+            "lr": 0.01,
+            "momentum": 0.9,
+            "dampening": 0,
+            "weight_decay": 0.0005,
+            "nesterov": false,
+            "initial_lr": 0.01,
+            "params": [
+                140145317517496,
+                140145317517568,
+                140145317517640,
+                140145317517712,
+                140145317517784,
+                140145317517856,
+                140145416161248,
+                140145317517424,
+                140145317517928,
+                140145317518000,
+                140145317518072,
+                140145317518144,
+                140145317518216,
+                140145317518288,
+                140145317518360,
+                140145317518432,
+                140145317518504,
+                140145317518576
+            ]
+        }
+    },
+    "lr Scheduler": {
+        "Type": "MultiStepLR",
+        "State": {
+            "milestones": {
+                "150": 1,
+                "250": 1
+            },
+            "gamma": 0.1,
+            "base_lrs": [
+                0.01
+            ],
+            "last_epoch": 0,
+            "_step_count": 1,
+            "_get_lr_called_within_step": false,
+            "_last_lr": [
+                0.01
+            ]
+        }
+    },
+    "Train Transform": [
+        "RandomCrop(size=(32, 32), padding=4)",
+        "RandomHorizontalFlip(p=0.5)",
+        "ToTensor()",
+        "Normalize(mean=(0.5, 0.5, 0.5), std=(0.1, 0.1, 0.1))"
+    ],
+    "Test Transform": [
+        "ToTensor()",
+        "Normalize(mean=(0.5, 0.5, 0.5), std=(0.1, 0.1, 0.1))"
+    ],
+    "Dataset": "CIFAR10",
+    "TrainingTime": "4:32:33.332617",
+    "InferenceTime": "0:00:02.809156",
+    "Performance": {
+        "Best_Train": 98.704,
+        "Final_Train": 98.704,
+        "Best_Test": 90.1,
+        "Final_Test": 89.99,
+        "Best_Loss": 899.8405725955963,
+        "Final_Loss": 45.92347853258252
+    },
+    "Class Performance": {
+        "plane": 89.2,
+        "car": 94.3,
+        "bird": 85.9,
+        "cat": 76.6,
+        "deer": 92.1,
+        "dog": 85.8,
+        "frog": 95.1,
+        "horse": 91.1,
+        "ship": 95.8,
+        "truck": 94
+    },
+    "Confusion Matrix": {
+        "plane": "[892.0, 4.0, 20.0, 6.0, 7.0, 3.0, 10.0, 4.0, 42.0, 12.0]",
+        "car": "[5.0, 943.0, 2.0, 0.0, 0.0, 1.0, 2.0, 1.0, 9.0, 37.0]",
+        "bird": "[22.0, 0.0, 859.0, 15.0, 37.0, 24.0, 32.0, 6.0, 4.0, 1.0]",
+        "cat": "[8.0, 1.0, 35.0, 766.0, 40.0, 87.0, 34.0, 13.0, 9.0, 7.0]",
+        "deer": "[5.0, 1.0, 18.0, 8.0, 921.0, 14.0, 17.0, 13.0, 2.0, 1.0]",
+        "dog": "[5.0, 1.0, 12.0, 73.0, 25.0, 858.0, 8.0, 16.0, 1.0, 1.0]",
+        "frog": "[3.0, 2.0, 11.0, 16.0, 6.0, 7.0, 951.0, 2.0, 1.0, 1.0]",
+        "horse": "[9.0, 0.0, 13.0, 11.0, 32.0, 17.0, 1.0, 911.0, 1.0, 5.0]",
+        "ship": "[20.0, 5.0, 3.0, 3.0, 0.0, 1.0, 2.0, 0.0, 958.0, 8.0]",
+        "truck": "[8.0, 26.0, 2.0, 2.0, 1.0, 1.0, 2.0, 2.0, 16.0, 940.0]"
+    }
+}

@@ -1,0 +1,215 @@
+{
+    "Model": "LeNet5",
+    "Model Size Trainable": 62006,
+    "Model Size Total": 62006,
+    "Model Structure": [
+        "(conv1): Conv2d(3, 6, kernel_size=(5, 5), stride=(1, 1))",
+        "(maxpool1): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)",
+        "(conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))",
+        "(maxpool2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)",
+        "(fc1): Linear(in_features=400, out_features=120, bias=True)",
+        "(fc2): Linear(in_features=120, out_features=84, bias=True)",
+        "(fc3): Linear(in_features=84, out_features=10, bias=True)"
+    ],
+    "Batch Size": 128,
+    "Total Epoch": 500,
+    "Device": "cuda",
+    "Loss Function": "CrossEntropyLoss",
+    "Optimizer": {
+        "Type": "SGD",
+        "State": {},
+        "param_groups": {
+            "lr": 0.001,
+            "momentum": 0.9,
+            "dampening": 0,
+            "weight_decay": 0,
+            "nesterov": false,
+            "initial_lr": 0.001,
+            "params": [
+                140246513927440,
+                140246513927512,
+                140246513927368,
+                140246513927728,
+                140246513927872,
+                140246513928016,
+                140246513928232,
+                140246513928304,
+                140246513928448,
+                140246513928520
+            ]
+        }
+    },
+    "lr Scheduler": {
+        "Type": "MultiStepLR",
+        "State": {
+            "milestones": {
+                "500": 1
+            },
+            "gamma": 0.1,
+            "base_lrs": [
+                0.001
+            ],
+            "last_epoch": 0,
+            "_step_count": 1,
+            "_get_lr_called_within_step": false,
+            "_last_lr": [
+                0.001
+            ]
+        }
+    },
+    "Train Transform": [
+        "RandomCrop(size=(32, 32), padding=4)",
+        "RandomHorizontalFlip(p=0.5)",
+        "ToTensor()",
+        "Normalize(mean=(0.5, 0.5, 0.5), std=(0.1, 0.1, 0.1))"
+    ],
+    "Test Transform": [
+        "ToTensor()",
+        "Normalize(mean=(0.5, 0.5, 0.5), std=(0.1, 0.1, 0.1))"
+    ],
+    "Dataset": "CIFAR10",
+    "TrainingTime": "0:48:20.158357",
+    "InferenceTime": "0:00:00.529544",
+    "Performance": {
+        "Best_Train": 74.084,
+        "Final_Train": 73.168,
+        "Best_Test": 74.05,
+        "Final_Test": 73.25,
+        "Best_Loss": 799.8406381607056,
+        "Final_Loss": 292.67361837625504
+    },
+    "Class Performance": {
+        "plane": 77.9,
+        "car": 86.4,
+        "bird": 59.3,
+        "cat": 34.1,
+        "deer": 73.9,
+        "dog": 78.2,
+        "frog": 79.6,
+        "horse": 77,
+        "ship": 82.8,
+        "truck": 83.3
+    },
+    "Confusion Matrix": {
+        "plane": [
+            779,
+            21,
+            46,
+            7,
+            13,
+            17,
+            4,
+            18,
+            62,
+            33
+        ],
+        "car": [
+            20,
+            864,
+            2,
+            1,
+            1,
+            7,
+            7,
+            5,
+            27,
+            66
+        ],
+        "bird": [
+            60,
+            4,
+            593,
+            32,
+            88,
+            106,
+            62,
+            37,
+            12,
+            6
+        ],
+        "cat": [
+            23,
+            11,
+            62,
+            341,
+            53,
+            348,
+            75,
+            51,
+            21,
+            15
+        ],
+        "deer": [
+            10,
+            4,
+            46,
+            18,
+            739,
+            84,
+            37,
+            53,
+            5,
+            4
+        ],
+        "dog": [
+            12,
+            5,
+            36,
+            59,
+            38,
+            782,
+            19,
+            42,
+            3,
+            4
+        ],
+        "frog": [
+            8,
+            4,
+            40,
+            29,
+            38,
+            59,
+            796,
+            20,
+            4,
+            2
+        ],
+        "horse": [
+            12,
+            7,
+            23,
+            10,
+            43,
+            114,
+            9,
+            770,
+            3,
+            9
+        ],
+        "ship": [
+            66,
+            30,
+            8,
+            7,
+            7,
+            13,
+            5,
+            5,
+            828,
+            31
+        ],
+        "truck": [
+            26,
+            59,
+            8,
+            11,
+            3,
+            8,
+            3,
+            22,
+            27,
+            833
+        ]
+    }
+}

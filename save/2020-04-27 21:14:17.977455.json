@@ -1,0 +1,123 @@
+{
+    "Model": "AlexNet",
+    "Model Size Trainable": 58322314,
+    "Model Size Total": 58322314,
+    "Model Structure": [
+        "(conv1): Conv2d(3, 96, kernel_size=(11, 11), stride=(2, 2), padding=(4, 4))",
+        "(maxpool1): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)",
+        "(conv2): Conv2d(96, 256, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))",
+        "(maxpool2): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)",
+        "(conv3): Conv2d(256, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+        "(conv4): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+        "(conv5): Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))",
+        "(maxpool3): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)",
+        "(avgPool): AdaptiveAvgPool2d(output_size=(6, 6))",
+        "(classifier): Sequential(",
+        "  (0): Dropout(p=0.5, inplace=False)",
+        "  (1): Linear(in_features=9216, out_features=4096, bias=True)",
+        "  (2): ReLU(inplace=True)",
+        "  (3): Dropout(p=0.5, inplace=False)",
+        "  (4): Linear(in_features=4096, out_features=4096, bias=True)",
+        "  (5): ReLU(inplace=True)",
+        "  (6): Linear(in_features=4096, out_features=10, bias=True)",
+        ")"
+    ],
+    "Batch Size": 128,
+    "Total Epoch": 350,
+    "Device": "cuda",
+    "Loss Function": "CrossEntropyLoss",
+    "Optimizer": {
+        "Type": "SGD",
+        "State": {},
+        "param_groups": {
+            "lr": 0.01,
+            "momentum": 0.9,
+            "dampening": 0,
+            "weight_decay": 0.0005,
+            "nesterov": false,
+            "initial_lr": 0.01,
+            "params": [
+                139707246737664,
+                139707246737592,
+                139707345482520,
+                139707246737736,
+                139707246737808,
+                139707246737880,
+                139707246737952,
+                139707246738024,
+                139707246738096,
+                139707246738168,
+                139707345482592,
+                139707246738240,
+                139707246738312,
+                139707246738384,
+                139707246738456,
+                139707246738528
+            ]
+        }
+    },
+    "lr Scheduler": {
+        "Type": "MultiStepLR",
+        "State": {
+            "milestones": {
+                "150": 1,
+                "250": 1
+            },
+            "gamma": 0.1,
+            "base_lrs": [
+                0.01
+            ],
+            "last_epoch": 0,
+            "_step_count": 1,
+            "_get_lr_called_within_step": false,
+            "_last_lr": [
+                0.01
+            ]
+        }
+    },
+    "Train Transform": [
+        "RandomCrop(size=(32, 32), padding=4)",
+        "RandomHorizontalFlip(p=0.5)",
+        "ToTensor()",
+        "Normalize(mean=(0.5, 0.5, 0.5), std=(0.1, 0.1, 0.1))"
+    ],
+    "Test Transform": [
+        "ToTensor()",
+        "Normalize(mean=(0.5, 0.5, 0.5), std=(0.1, 0.1, 0.1))"
+    ],
+    "Dataset": "CIFAR10",
+    "TrainingTime": "2:55:19.890356",
+    "InferenceTime": "0:00:01.311786",
+    "Performance": {
+        "Best_Train": 99.976,
+        "Final_Train": 99.976,
+        "Best_Test": 83.99,
+        "Final_Test": 83.92,
+        "Best_Loss": 724.0359891653061,
+        "Final_Loss": 1.114247761288425
+    },
+    "Class Performance": {
+        "plane": 87,
+        "car": 91.3,
+        "bird": 79,
+        "cat": 67.7,
+        "deer": 82.3,
+        "dog": 75.1,
+        "frog": 88.6,
+        "horse": 87.3,
+        "ship": 91,
+        "truck": 89.9
+    },
+    "Confusion Matrix": {
+        "plane": "[870.0, 14.0, 18.0, 13.0, 9.0, 3.0, 10.0, 6.0, 41.0, 16.0]",
+        "car": "[10.0, 913.0, 4.0, 2.0, 0.0, 2.0, 2.0, 3.0, 13.0, 51.0]",
+        "bird": "[42.0, 2.0, 790.0, 39.0, 47.0, 25.0, 32.0, 14.0, 4.0, 5.0]",
+        "cat": "[18.0, 3.0, 49.0, 677.0, 52.0, 123.0, 30.0, 26.0, 13.0, 9.0]",
+        "deer": "[13.0, 2.0, 46.0, 37.0, 823.0, 20.0, 26.0, 25.0, 5.0, 3.0]",
+        "dog": "[8.0, 2.0, 22.0, 135.0, 30.0, 751.0, 15.0, 28.0, 3.0, 6.0]",
+        "frog": "[6.0, 3.0, 24.0, 32.0, 22.0, 18.0, 886.0, 5.0, 1.0, 3.0]",
+        "horse": "[11.0, 2.0, 17.0, 14.0, 28.0, 44.0, 2.0, 873.0, 3.0, 6.0]",
+        "ship": "[43.0, 11.0, 5.0, 6.0, 3.0, 4.0, 2.0, 2.0, 910.0, 14.0]",
+        "truck": "[19.0, 45.0, 3.0, 7.0, 1.0, 2.0, 5.0, 3.0, 16.0, 899.0]"
+    }
+}

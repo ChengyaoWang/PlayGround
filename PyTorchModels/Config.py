@@ -5,14 +5,14 @@
 Optimizer = {
     'SGD': {
             'optim_TYPE': 'SGD',
-            'learning_rate': 0.004,
+            'learning_rate': 0.1,
             'momentum': 0.9,
-            'weight_decay': 5e-4,
+            'weight_decay': 1e-4,
             'nesterov': False
     },
     'Adams':{
             'optim_TYPE': 'Adams',
-            'learning_rate': 0.01,
+            'learning_rate': 0.1,
             'betas': (0.9, 0.999),
             'weight_decay': 0,
             'amsgrad': False

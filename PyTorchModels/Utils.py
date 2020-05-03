@@ -1,6 +1,7 @@
 import numpy as np 
 import json
 import torch
+import random
 import torch.nn as nn 
 import torchvision
 import matplotlib.pyplot as plt
@@ -41,22 +42,29 @@ def optim_init(model, optim_dict, scheduler_dict):
                                                          milestones = scheduler_dict['milestones'],
                                                          gamma = scheduler_dict['gamma'])
     return optim, scheduler
+
 # Initialize Weight
 def weight_init(m):
-    if type(m) == nn.Linear:
-        # nn.init.xavier_uniform_(m.weight, gain = 1.0)
-        nn.init.xavier_normal_(m.weight, gain = 1.0)
+    if isinstance(m, nn.Linear):
+        nn.init.xavier_uniform_(m.weight, gain = 1.0)
+        # nn.init.xavier_normal_(m.weight, gain = 1.0)
         # nn.init.kaiming_uniform_(m.weight, a = 0, mode = 'fan_in', nonlinearity = 'relu')
         # nn.init.normal_(m.weight, 0, 1)
         # m.bias.data.fill_(0.00)
-        pass
+    elif isinstance(m, nn.Conv2d):
+        # nn.init.xavier_uniform_(m.weight, gain = 1.0)
+        nn.init.kaiming_uniform_(m.weight, a = 0, mode = 'fan_in', nonlinearity = 'relu')
+        if m.bias is not None:
+            nn.init.normal_(m.bias, 0, 1)
+
+
 # Initialize DataAug
 def transform_init():
     pass
 
 
 # Dataset Loader
-def DatasetLoader(name, Train_transform, Test_transform, batch_size):
+def DatasetLoader(name, Train_transform, Test_transform, batch_size, TrainShrink = 1.0):
     if name == 'CIFAR10':
         X_train = torchvision.datasets.CIFAR10('./dataset/',
                                                 train = True,
@@ -66,6 +74,8 @@ def DatasetLoader(name, Train_transform, Test_transform, batch_size):
                                                 train = False,
                                                 transform = Test_transform,
                                                 download = True)
+        selectedIdx = random.sample(range(len(X_train)), int(len(X_train) * TrainShrink))
+        X_train = torch.utils.data.Subset(X_train, selectedIdx)
         TrainLoader = torch.utils.data.DataLoader(  dataset = X_train,
                                                     batch_size = batch_size,
                                                     num_workers = 4,
@@ -75,7 +85,7 @@ def DatasetLoader(name, Train_transform, Test_transform, batch_size):
                                                     num_workers = 4,
                                                     shuffle = False)
         labels = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-    
+
     return [TrainLoader, TestLoader], labels
 
 

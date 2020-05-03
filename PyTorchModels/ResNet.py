@@ -61,6 +61,7 @@ class ResNetv1_BasicBlock(nn.Module):
             identity = self.downsample(identity)
         x = self.relu2(x + identity)
         return x
+        
 # This is the basic block for ResNet 50 / 101 / 152
 class ResNetv1_BottleNeck(nn.Module):
     expansion = 4

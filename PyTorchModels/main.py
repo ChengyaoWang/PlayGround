@@ -10,20 +10,26 @@ import Config
 import Recorder
 # Models
 import AlexNet, ResNet, LeNet5, MobileNet, NiNet
-import SqueezeNet
+import SqueezeNet, myNet
 
 # Recorder Instantiate
 myRecorder = Recorder.Recorder()
+torch.cuda.empty_cache()
 
 # Fetch Models, Init & Copy
-# model = ResNet.Fetch_ResNet('ResNet32v1')
+# model = ResNet.Fetch_ResNet('ResNet8v1')
 # model = AlexNet.AlexNet()
 # model = LeNet5.LeNet5()
 # model = MobileNet.MobileNetv1()
 # model = NiNet.NetworkInNetwork()
-model = SqueezeNet.Fetch_SqueezeNet('Basic')
+# model = SqueezeNet.Fetch_SqueezeNet('Bypass_Simple')
+# model = SqueezeNet.SqueezeNet('Basic')
+model = myNet.myNet(ResidualDepth = 2, DepthShrink = 0.5)
+
+
 
 # print(model)
+print(sum(p.numel() for p in model.parameters() if p.requires_grad))
 # raise ValueError('aaaaaa')
 
 
@@ -60,13 +66,15 @@ myRecorder.add_record_('lr Scheduler', {'Type': scheduler_dict['schedule_TYPE'],
 Train_transform = transforms.Compose([transforms.RandomCrop(32, padding = 4),
                                       transforms.RandomHorizontalFlip(),
                                       transforms.ToTensor(),
-                                      transforms.Normalize((0.5, 0.5, 0.5), (0.1, 0.1, 0.1))])
+                                      transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
 Test_transform = transforms.Compose([ transforms.ToTensor(),
-                                      transforms.Normalize((0.5, 0.5, 0.5), (0.1, 0.1, 0.1))])
-DataLoader, label = Utils.DatasetLoader('CIFAR10', Train_transform, Test_transform, batch_size)
+                                      transforms.Normalize((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261))])
+DataLoader, label = Utils.DatasetLoader('CIFAR10', Train_transform, Test_transform, batch_size, TrainShrink = 0.03125)
+myRecorder.add_record_('TrainSet Size', 0.03125)
 myRecorder.add_record_('Train Transform', [trans[4:] for trans in str(Train_transform).split('\n')[1:-1]])
 myRecorder.add_record_('Test Transform', [trans[4:] for trans in str(Test_transform).split('\n')[1:-1]])
 myRecorder.add_record_('Dataset', 'CIFAR10')
+
 
 # Starts Training
 # Record Start Time, this serves as time stamp for all the files stored
